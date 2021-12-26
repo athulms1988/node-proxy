@@ -6,14 +6,14 @@ const request = require("request");
 app.use(cors());
 app.use(bodyParser.json());
 
-const realendpoint = "https://foodpage.co.uk";
+const realendpoint = "https://createroyale.herokuapp.com";
 
 app.get('*', async (req, res) => {
   const url = realendpoint + req.path;
   request.get({
     url: url, 
     qs: req.query, 
-    headers: {'x-admin': req.headers['x-admin']}
+    headers: {'Authorization': req.headers['Authorization']}
   }, function (err, resp, body) {
     if(err) {
       res.status(resp.statusCode).send(err);
@@ -28,7 +28,7 @@ app.post('*', async (req, res) => {
   request.post({
     url: url, 
     qs: req.query,
-    headers: {'x-admin': req.headers['x-admin']},
+    headers: {'Authorization': req.headers['Authorization']},
     body: JSON.stringify(req.body)
   }, function (err, resp, body) {
     if(err) {
@@ -44,7 +44,7 @@ app.put('*', async (req, res) => {
   request.put({
     url: url, 
     qs: req.query,
-    headers: {'x-admin': req.headers['x-admin']},
+    headers: {'Authorization': req.headers['Authorization']},
     body: JSON.stringify(req.body)
   }, function (err, resp, body) {
     if(err) {
